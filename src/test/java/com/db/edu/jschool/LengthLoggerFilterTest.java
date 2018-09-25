@@ -7,7 +7,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class LengthLoggerFilterTest {
-    LengthLoggerFilter loggerFilter;
+    private LengthLoggerFilter loggerFilter;
 
     @Before
     public void setUp(){
@@ -18,6 +18,12 @@ public class LengthLoggerFilterTest {
     @Test
     public void shouldFilterOutWhenShotMessage(){
         boolean result = loggerFilter.filter("qwe");
+        assertFalse(result);
+    }
+
+    @Test
+    public void shouldFilterOutWhenLengthAlmostFine(){
+        boolean result = loggerFilter.filter("qwert");
         assertFalse(result);
     }
 
