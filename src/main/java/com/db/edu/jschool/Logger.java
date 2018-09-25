@@ -11,6 +11,11 @@ public class Logger {
     }
 
     public void log(String message) {
+        if (message == null) { throw new IllegalArgumentException("Message cannot be null"); }
+
+        if (filter == null) { throw new IllegalStateException("Filter cannot be null"); }
+        if (saver == null) { throw new IllegalStateException("Save cannot be null"); }
+
         if (filter.filter(message)) {
             saver.save(message);
         }

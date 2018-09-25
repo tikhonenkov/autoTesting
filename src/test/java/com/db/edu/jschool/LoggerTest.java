@@ -47,11 +47,26 @@ public class LoggerTest {
     }
 
     @Test
-    public void shoulSaveWhenValidMessage() {
+    public void shouldSaveWhenValidMessage() {
         when(filter.filter(anyString())).thenReturn(true);
 
         logger.log(MESSAGE);
 
         verify(saver, times(1)).save(MESSAGE);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void shouldNotFailWhenFilterNull() {
+        new Logger(null, saver).log(MESSAGE);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void shouldNotFailWhenSaverNull() {
+        new Logger(filter, null).log(MESSAGE);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldNotFailWhenMessageNull() {
+        logger.log(null);
     }
 }
